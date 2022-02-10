@@ -112,8 +112,6 @@ namespace SAPN_Calculator
 
         private void button_browse_Click(object sender, EventArgs e)
         {
-            var fileContent = string.Empty;
-
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "Open Detailed Summary CSV file";
