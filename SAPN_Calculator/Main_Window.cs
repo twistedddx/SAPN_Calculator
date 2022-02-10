@@ -214,8 +214,6 @@ namespace SAPN_Calculator
                             {
                                 previousYear = previousMonth = -1;
                             }
-                            previousEnergyClass = energyClass;
-
 
                             interval = int.Parse(columns[8]);
 
@@ -288,16 +286,15 @@ namespace SAPN_Calculator
                             if (reportDuration >= ReportDuration.Monthly)
                             {
                                 //new month, dump previous total and clear
-                                if (isNewMonth)
+                                if (isNewMonth || isNewYear)
                                 {
                                     if (reportDuration == ReportDuration.Monthly)
                                     {
-                                        textBox_output.AppendText(date + "," + energyClass.ToString() + "," + string.Join(",", monthData) + "\r\n");
+                                        textBox_output.AppendText(date + "," + previousEnergyClass.ToString() + "," + string.Join(",", monthData) + "\r\n");
                                         dataPrinted = true;
                                     }
                                     Array.Clear(monthData, 0, monthData.Count());
                                 }
-
 
                                 for (int x = 0; x < dayData.Count(); x++)
                                 {
@@ -312,7 +309,7 @@ namespace SAPN_Calculator
                                 {
                                     if (reportDuration == ReportDuration.Yearly)
                                     {
-                                        textBox_output.AppendText(date + "," + energyClass.ToString() + "," + string.Join(",", yearData) + "\r\n");
+                                        textBox_output.AppendText(date + "," + previousEnergyClass.ToString() + "," + string.Join(",", yearData) + "\r\n");
                                         dataPrinted = true;
                                     }
                                     Array.Clear(yearData, 0, yearData.Count());
@@ -326,11 +323,17 @@ namespace SAPN_Calculator
                                     }
                                 }
                             }
+
+                            previousEnergyClass = energyClass;
                         }
                     }
                     //last entry did not print as there was not a new year/month trigger, force print here
                     if (dataPrinted == false)
                     {
+                        if (logLevel >= LogLevel.Debug)
+                        {
+                            textBox_output.AppendText("Final Year/Month\r\n");
+                        }
                         if (reportDuration == ReportDuration.Yearly)
                         {
                             //last month also did not get added
