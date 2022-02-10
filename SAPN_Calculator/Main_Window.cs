@@ -215,7 +215,7 @@ private void button_browse_Click(object sender, EventArgs e)
                             //if energyClass changes create new dates for isNew
                             if (energyClass != previousEnergyClass)
                             {
-                                previousYear = previousMonth = previousDay = 1;
+                                previousYear = previousMonth = previousDay = -1;
                             }
                             previousEnergyClass = energyClass;
 
