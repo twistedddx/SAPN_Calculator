@@ -162,7 +162,6 @@ namespace SAPN_Calculator
                 if (lineCount > 0)
                 {
                     string date = "";
-                    string oldDate = "";
                     EnergyClass energyClass = EnergyClass.Import;
                     int interval = 0;
 
