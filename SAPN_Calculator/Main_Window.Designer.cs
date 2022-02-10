@@ -130,6 +130,7 @@
             this.comboBox_duration.Name = "comboBox_duration";
             this.comboBox_duration.Size = new System.Drawing.Size(150, 21);
             this.comboBox_duration.TabIndex = 0;
+            this.comboBox_duration.SelectedIndexChanged += new System.EventHandler(this.comboBox_duration_SelectedIndexChanged);
             // 
             // groupBox_output
             // 

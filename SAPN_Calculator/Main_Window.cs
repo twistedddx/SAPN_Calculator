@@ -110,7 +110,7 @@ namespace SAPN_Calculator
         }
 
 
-private void button_browse_Click(object sender, EventArgs e)
+        private void button_browse_Click(object sender, EventArgs e)
         {
             var fileContent = string.Empty;
 
@@ -162,16 +162,16 @@ private void button_browse_Click(object sender, EventArgs e)
                 if (lineCount > 0)
                 {
                     string date = "";
+                    string oldDate = "";
                     EnergyClass energyClass = EnergyClass.Import;
                     int interval = 0;
 
-                    bool isNewYear, isNewMonth, isNewDay;
+                    bool isNewYear, isNewMonth;
                     int year;
                     int month;
                     int day;
                     int previousYear = 0;
                     int previousMonth = 0;
-                    int previousDay = 0;
                     bool dataPrinted = false;
 
                     float[] dayData = new float[3];
@@ -215,7 +215,7 @@ private void button_browse_Click(object sender, EventArgs e)
                             //if energyClass changes create new dates for isNew
                             if (energyClass != previousEnergyClass)
                             {
-                                previousYear = previousMonth = previousDay = -1;
+                                previousYear = previousMonth = -1;
                             }
                             previousEnergyClass = energyClass;
 
@@ -290,6 +290,7 @@ private void button_browse_Click(object sender, EventArgs e)
 
                             if (reportDuration >= ReportDuration.Monthly)
                             {
+                                //new month, dump previous total and clear
                                 if (isNewMonth)
                                 {
                                     if (reportDuration == ReportDuration.Monthly)
@@ -309,6 +310,7 @@ private void button_browse_Click(object sender, EventArgs e)
 
                             if (reportDuration >= ReportDuration.Yearly)
                             {
+                                //new year, dump previous total and clear
                                 if (isNewYear)
                                 {
                                     if (reportDuration == ReportDuration.Yearly)
@@ -355,6 +357,18 @@ private void button_browse_Click(object sender, EventArgs e)
                 {
                     textBox_output.Text = "No data? Try loading another detailed summary and press run.";
                 }
+            }
+        }
+
+        private void comboBox_duration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox_duration.SelectedIndex == (int)ReportDuration.Hourly)
+            {
+                comboBox_schedule.Enabled = false;
+            }
+            else
+            {
+                comboBox_schedule.Enabled = true;
             }
         }
     }
