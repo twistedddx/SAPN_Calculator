@@ -120,10 +120,10 @@ namespace SAPN_Calculator
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    filePath = openFileDialog.FileName;
+                    filePath = textBox_inputFile.Text = openFileDialog.FileName;
                 }
             }
-            textBox_inputFile.Text = filePath;
+
         }
 
         private void button_run_Click(object sender, EventArgs e)
